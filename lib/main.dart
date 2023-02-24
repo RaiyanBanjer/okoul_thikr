@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.green,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Home Page'),
     );
   }
 }
@@ -49,6 +49,22 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  int thikr = 0;
+
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text('Home Page',
+        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+    Text('Search Page',
+        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+    Text('Profile Page',
+        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _counter = index;
+    });
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -57,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _counter++;
+      thikr++;
     });
   }
 
@@ -73,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text('home'),
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
@@ -95,8 +111,13 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            Text(
+              'Astagfur Allah',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            Text(
+              '$thikr',
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
             Text(
               '$_counter',
@@ -110,6 +131,23 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+      bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+                icon: Icon(Icons.mosque_rounded),
+                backgroundColor: Colors.green,
+                label: ('Adhan')),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.soap_rounded),
+                label: ('Thikr'),
+                backgroundColor: Colors.green),
+          ],
+          type: BottomNavigationBarType.shifting,
+          currentIndex: _counter,
+          selectedItemColor: Colors.black,
+          iconSize: 40,
+          onTap: _onItemTapped,
+          elevation: 5),
     );
   }
 }
